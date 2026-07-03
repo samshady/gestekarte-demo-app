@@ -46,5 +46,4 @@ Diese Demo-App ist eine **alternative, ergänzende Umsetzung** zum offiziellen J
 
 ## Repositories
 
-- Demo-App: https://github.com/samshady/gestekarte-demo-app
-- Hauptprojekt: https://github.com/samshady/Projektseminar-Infomanagement-SS26
+- Quellcode: https://github.com/samshady/gestekarte-demo-app
