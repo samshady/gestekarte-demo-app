@@ -4,6 +4,9 @@ Next.js-Web-App zur Visualisierung und Demonstration des digitalen Gästekarte-A
 
 **Projektseminar Informationsmanagement | SS-26**
 
+**Team:** Doaa Nawaf Abdo Al-Shoumi, Amy Marie Müller, Jenna Maria Lara Peters, Sameer Rana, Jacy Nicole Richter
+**Betreuer:** Sebastian Hirsekorn, Leonard Nake
+
 ---
 
 ## Überblick
@@ -43,7 +46,3 @@ Dann http://localhost:3000 öffnen.
 ## Projekt-Kontext
 
 Diese Demo-App ist eine **alternative, ergänzende Umsetzung** zum offiziellen JobRouter-Prototypen und war kein Bestandteil der Projektanforderungen. Sie diente als Machbarkeitsnachweis und zur Visualisierung des Soll-Prozesses während der Entwicklungsphase.
-
-## Repositories
-
-- Quellcode: https://github.com/samshady/gestekarte-demo-app
