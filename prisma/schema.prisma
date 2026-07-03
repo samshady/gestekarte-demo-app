@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Status {
+  INVITED
+  PENDING_HOST
+  APPROVED
+  EXPIRED
+  DEACTIVATED
+  REJECTED
+}
+
+model GuestApplication {
+  id             String   @id @default(uuid())
+  guestName      String
+  guestSalutation String?
+  guestFirstName String?
+  nationality    String?
+  guestEmail     String
+  dateOfBirth    DateTime
+  homeAddress    String
+  halleAddress   String
+  arrivalDate    DateTime
+  departureDate  DateTime
+  photoUrl       String
+  hostName       String
+  hostSalutation String?
+  hostFirstName  String?
+  hostEmail      String?
+  hostFaculty    String?
+  hostPhone      String?
+  costCenter     String?
+  status         Status   @default(PENDING_HOST)
+
+  wlanAccess      Boolean  @default(false)
+  libraryAccess   Boolean  @default(false)
+  mensaPayments   Boolean  @default(true)
+  vpnAccess       Boolean  @default(false)
+  databaseAccess  Boolean  @default(false)
+
+  cardActive      Boolean  @default(true)
+  referenceNumber String?
+  applicationNumber String?
+  guestNumber     String?
+
+  invitedBy         String?
+  guestSignedAt     DateTime?
+  hostSignedAt      DateTime?
+  hostSignature     String?
+  wlanProvisioned   Boolean  @default(false)
+  libraryProvisioned Boolean @default(false)
+  provisionedAt     DateTime?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

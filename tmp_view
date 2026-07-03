@@ -1,0 +1,172 @@
+import os
+import subprocess
+
+def run_cmd(cmd):
+    print(f"Running: {cmd}")
+    subprocess.run(cmd, shell=True, check=True)
+
+def main():
+    out_dir = "/home/sam/Development/workflow-optimisation/Projektseminar_Infomanagement/Artefakte/Final"
+    os.chdir(out_dir)
+
+    # 1. Convert Markdown to TeX snippets
+    run_cmd("pandoc 1_Ist_Prozess/1_a_Personas/personas.md -o personas.tex")
+    run_cmd("pandoc 2_Soll_Prozess/2_b_User-Stories/user-stories.md -o user-stories.tex")
+
+    with open("personas.tex", "r", encoding="utf-8") as f:
+        p_tex = f.read()
+    # Add generous spacing around the horizontal rules between personas
+    p_tex = p_tex.replace(r"\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}",
+                          r"\vspace{1cm}\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}\vspace{1cm}")
+    with open("personas.tex", "w", encoding="utf-8") as f:
+        f.write(p_tex)
+
+    # 2. Setup the TeX content
+    tex_content = r"""\documentclass[12pt, a4paper]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{newtxtext, newtxmath} % Times New Roman style
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{pdflscape} % for horizontal pages
+\usepackage{hyperref}
+
+\onehalfspacing
+
+\begin{document}
+
+% --- Title Page ---
+\begin{titlepage}
+    \centering
+    {\Large \textbf{MARTIN-LUTHER-UNIVERSITÄT\\[0.5ex] HALLE-WITTENBERG}}\\[2cm]
+    {\normalsize
+    Juristische und Wirtschaftswissenschaftliche Fakultät\\[1ex]
+    Institut für Informatik / Wirtschaftsinformatik\\[2cm]
+    }
+    {\normalsize \textit{Projektseminar Informationsmanagement · SS-26}}\\[1.5ex]
+    {\large \textbf{Gästekarteprozess Optimierung}}\\[2cm]
+    \vfill
+    \begin{flushleft}
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{@{}ll}
+            Team: & Doaa Al-Shoumi, Amy Müller, Jenna Peters, \\
+                  & Sameer Rana, Jacy Richter \\
+            Betreuer: & Sebastian Hirsekorn, Leonard Nake \\
+        \end{tabular}
+    \end{flushleft}
+\end{titlepage}
+
+\clearpage
+
+% --- Section 1: Ist-Prozess ---
+\section*{1. Ist-Prozess: Personas}
+\input{personas.tex}
+
+\clearpage
+\begin{landscape}
+\section*{User Journey Maps (Ist-Prozess)}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{1_Ist_Prozess/1_b_User-Journey-Maps/UJM_Internationaler-Gast.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\clearpage
+\begin{landscape}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]{1_Ist_Prozess/1_b_User-Journey-Maps/UJM_Nationaler-Gast.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\clearpage
+\begin{landscape}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]{1_Ist_Prozess/1_b_User-Journey-Maps/UJM_Host.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\clearpage
+\begin{landscape}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]{1_Ist_Prozess/1_b_User-Journey-Maps/UJM_IO.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\clearpage
+\begin{landscape}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]{1_Ist_Prozess/1_b_User-Journey-Maps/UJM_ITZ.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\clearpage
+\begin{landscape}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]{1_Ist_Prozess/1_b_User-Journey-Maps/UJM_ULB.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\clearpage
+\begin{landscape}
+\section*{BPMN: Ist-Prozess}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{BPMN/Ist-Prozess.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+% --- Section 2: Soll-Prozess ---
+\clearpage
+\section*{2. Soll-Prozess: User Stories}
+\input{user-stories.tex}
+
+\clearpage
+\begin{landscape}
+\section*{Service Blueprint (Soll-Prozess)}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{2_Soll_Prozess/2_a_Service-Blueprint/service_blueprint.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\clearpage
+\begin{landscape}
+\section*{BPMN: Soll-Prozess}
+\vspace*{\fill}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{BPMN/Soll-Prozess.png}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+
+\end{document}
+"""
+
+    with open("Projekt_Artefakte_Export.tex", "w", encoding="utf-8") as f:
+        f.write(tex_content)
+
+    # 3. Compile LaTeX
+    # Need twice for some references etc, though first pass should be enough here
+    run_cmd("pdflatex -interaction=nonstopmode Projekt_Artefakte_Export.tex")
+    
+    print("LaTeX build complete.")
+
+if __name__ == "__main__":
+    main()
